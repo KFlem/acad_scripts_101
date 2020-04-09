@@ -1,0 +1,18 @@
+;(setvar "CMDECHO" 0); 
+
+;Access the active documents layer table;
+(setq acadobject (vlax-get-Acad-Object))
+(setq activedocument (vla-get-activedocument acadobject))
+(setq LayerTable (vla-get-layers activedocument))
+
+
+; Using the LayerTable object, add a layer named, -Hatch. ;
+; The add method, checks for existing layers first. ;
+(setq WMDHATCH (vla-add LayerTable "-Hatch"))
+
+; Get all the hatch objects from the active document. ;
+(setq ALLHATCH (ssget "X" (list (cons 0 "HATCH"))))
+
+; Get the selection set objects name, and use it to set its properties. ; 
+(command ".CHPROP" SETD "" "LA" (vla-get-name ALLHATCH) "")
+

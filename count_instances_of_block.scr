@@ -1,0 +1,36 @@
+(defun c:bcount ( / p1 b a n)
+ 
+	(setq p1 (getstring "\Name of Block : "))
+	;get the name of the block
+ 
+	(setq b (cons 2 p1))
+	;construct a dotted pair - code 2 is for blocks
+ 
+	(setq a (ssget "x" (list b)))
+	;filter for the block name
+ 
+	(if (/= a nil)
+	;check if there are any blocks of that name
+ 
+	   (progn
+	   ;if there is…
+ 
+		(setq n (sslength a))
+		;count the number of blocks
+ 
+		(alert (strcat "\nThere are " (itoa n) " in the DataBase"))
+		;display the result
+ 
+	   );progn
+	   ;if there are no blocks
+ 
+		(alert "\nThere are none in the DataBase")
+		;inform the user
+ 
+	);if
+ 
+   (princ)
+ 
+);defun
+ 
+(princ)

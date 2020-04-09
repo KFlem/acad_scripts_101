@@ -1,0 +1,18 @@
+;(setvar "CMDECHO" 0);
+
+;Access the active documents layer table object. ;
+(setq acadobject (vlax-get-Acad-Object))
+(setq activedocument (vla-get-activedocument acadobject))
+(setq LayerTable (vla-get-layers activedocument))
+
+; Using the LayerTable object, add a layer named, -Dims and Text. ;
+; The add method, checks for existing layers first. ;
+(setq WMDDIMS1 (vla-add LayerTable "-Dims and Text 1"))
+
+; Get all the dimension objects from the active document. ;
+(setq SETD (ssget "X" (list(cons 0 "DIMENSION"))))
+
+; Get the selection set object and set its properties. ;  
+(command ".CHPROP" SETD "" "LA" (vla-get-name WMDDIMS1) "")
+
+;(setvar "CMDECHO" 1);
